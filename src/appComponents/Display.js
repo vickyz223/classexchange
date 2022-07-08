@@ -14,9 +14,10 @@ const Display = ({exchanges, newFind, newExchange}) => {
     return currFind.includes(find) && currExchange.includes(exchange)
   }
 
+  //TODO: FIND NEW KEY 
   return (
     <div>
-      {exchanges.map(exchange => contains(exchange, newFind, newExchange) && <Exchange exchange={exchange} />)}
+      {exchanges.map(exchange => contains(exchange, newFind, newExchange) && <Exchange key={Math.random()*100} exchange={exchange} />)}
     </div>
   )
 }
