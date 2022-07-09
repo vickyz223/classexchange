@@ -1,11 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Search from './appComponents/Search'
 import Display from './appComponents/Display'
 import MakeNew from './appComponents/MakeNew'
+import axios from 'axios'
+import { getSelectUtilityClasses } from '@mui/material'
+
+const url = 'http://localhost:3001'
 
 
 function App() {
-  const classes = ['COM SCI 32', 'MATH 1', 'MATH 32B', 'PHYSICS 1A']; 
+  const [classes, setClasses] = useState(''); 
+
+  axios
+    .get(url + '/api/classes')
+    .then(response => response.data)
+    .then(classes => classes.map(curr => curr.name))
+    .then(bruh => setClasses(bruh)); 
+  
   const exchanges = [
     {
       user: '1',

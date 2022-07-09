@@ -23,4 +23,4 @@ const Search = ({classes, setFind, setExchange}) => {
   )
 }
 
-export default Search; 
+export default Search;

@@ -10,7 +10,6 @@ const Display = ({exchanges, newFind, newExchange}) => {
     let currExchange = current.exchanging.toUpperCase().trim(); 
     find = find.toUpperCase().trim(); 
     exchange = exchange.toUpperCase().trim(); 
-    console.log("find: ",find, "currFind: ", currFind, "currExchange: ", currExchange, "exchange: ",exchange)
     return currFind.includes(find) && currExchange.includes(exchange)
   }
 
