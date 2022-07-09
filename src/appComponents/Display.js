@@ -6,6 +6,12 @@ const Display = ({exchanges, newFind, newExchange}) => {
     if (exchange === null) {
       exchange = '';
     }
+    if (current.finding === null) {
+      current.finding = '';
+    }
+    if (current.exchanging === null) {
+      current.exchanging = ''; 
+    }
     let currFind = current.finding.toUpperCase().trim(); 
     let currExchange = current.exchanging.toUpperCase().trim(); 
     find = find.toUpperCase().trim(); 
@@ -26,7 +32,7 @@ const Exchange = ({exchange}) => {
     <div>
       <p>{exchange.user}</p>
       <h3>{exchange.finding}  |   {exchange.exchanging}</h3>
-      <p>{exchange.details}</p>
+      <p>{exchange.description}</p>
     </div>
   )
 }
