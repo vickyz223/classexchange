@@ -31,7 +31,7 @@ function App() {
   return (
     <div>
       <h1>Class Exchange Finder</h1>
-      <MakeNew /> <br/>
+      <MakeNew classes={classes}/> <br/>
       <Search classes={classes} setFind={setFind} setExchange={setExchange}/>
       <Display exchanges={exchanges} newFind={newFind} newExchange={newExchange} />
     </div>

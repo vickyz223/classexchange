@@ -8,16 +8,16 @@ const Search = ({classes, setFind, setExchange}) => {
           disablePortal
           id="combo-box-demo"
           options={classes}
-          onChange={(event, value) => setFind(value)}
-          renderInput={(params) => <TextField {...params} label="Class you're looking for: " />}
+          onChange={(event, value) => setExchange(value)}
+          renderInput={(params) => <TextField {...params} label="Class you're looking for: "/>}
         />
         <br />
         <Autocomplete
           disablePortal
           id="combo-box-demo"
           options={classes}
-          onChange={(event, value) => setExchange(value)}
-          renderInput={(params) => <TextField {...params} label="Class you're exchanging: (Optional) "/>}
+          onChange={(event, value) => setFind(value)}
+          renderInput={(params) => <TextField {...params} label="Class you're exchanging: (Optional)" />}
         />
       </div>
   )

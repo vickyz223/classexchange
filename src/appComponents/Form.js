@@ -12,20 +12,50 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+const Popup = ({classes}) => {
+  const [open, setOpen] = React.useState(false);
+  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button variant="outlined" 
+              color="primary" onClick={handleClickOpen}>
+        Make a new post!
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
+           New exchange request
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Form classes={classes}/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+           Close
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+           Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  )
+}
+
 const Form = ({classes}) => {
     const [newFind, setNewFind] = useState(''); 
     const [newExchange, setNewExchange] = useState(''); 
     const [newDesc, setDesc] = useState('')
 
-    const handleSubmit = async () => {
-         const newPost = {
-            user: "placeholder",
-            finding: newFind, 
-            exchanging: newExchange, 
-            description: newDesc
-         }
-        await axios.post('http://localhost:3001/api/exchanges', newPost)
-    }
     const handleDesc = (event) => {
         setDesc(event.target.value)
     }
@@ -59,27 +89,37 @@ const Form = ({classes}) => {
                 onChange={handleDesc}
             />
             <br /><br />
-            <button onClick={handleSubmit}>Submit</button>
-            <Popup />
+            <Submit newFind={newFind} newDesc={newDesc} newExchange={newExchange} />
         </div>
     )
 }
 
-const Popup = () => {
+const Submit = ({newFind, newDesc, newExchange}) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    const handleSubmit = async () => {
+        const newPost = {
+            user: "placeholder",
+            finding: newFind, 
+            exchanging: newExchange, 
+            description: newDesc
+        }
+        await axios.post('http://localhost:3001/api/exchanges', newPost)
+        setOpen(false); 
+    }
+
     const handleClose = () => {
-        setOpen(false);
-    };
+        setOpen(false); 
+    }
 
     return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
+        Submit
       </Button>
       <Dialog
         open={open}
@@ -88,18 +128,17 @@ const Popup = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {"Submit exchange?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
+            Once you've submitted, you can edit your request in your profile.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleSubmit}>Yes, I'm done</Button>
           <Button onClick={handleClose} autoFocus>
-            Agree
+            No, go back to form
           </Button>
         </DialogActions>
       </Dialog>
@@ -107,4 +146,4 @@ const Popup = () => {
   );
 }
 
-export default Form
+export default Popup

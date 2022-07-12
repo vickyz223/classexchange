@@ -1,6 +1,7 @@
 import {useNavigate} from 'react-router-dom';
+import Popup from './Form'
 
-const MakeNew = () => {
+const MakeNew = ({classes}) => {
   const navigate = useNavigate();
   const goToCreate = () => {
     navigate('/newpost');
@@ -9,7 +10,7 @@ const MakeNew = () => {
   return (
     <div>
       <h3>Can't find what you're looking for?</h3>
-      <button onClick={goToCreate}>Make a new Post!</button>
+      <Popup classes={classes} />
     </div>
   )
 }
