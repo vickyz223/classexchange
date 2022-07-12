@@ -2,6 +2,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios'
 import React from 'react'
+import Temp from './Temp'
 import { useState } from 'react';
 
 // mui imports 
@@ -19,39 +20,32 @@ const Popup = ({classes}) => {
     setOpen(true);
   };
   
-  const handleClose = () => {
+  const handleClickClose = () => {
     setOpen(false);
   };
 
   return (
     <div>
+      <Temp />
       <Button variant="outlined" 
               color="primary" onClick={handleClickOpen}>
         Make a new post!
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClickClose}>
         <DialogTitle>
            New exchange request
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <Form classes={classes}/>
+            <Form classes={classes} handleClickClose={handleClickClose}/>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-           Close
-          </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-           Yes
-          </Button>
-        </DialogActions>
       </Dialog>
     </div>
   )
 }
 
-const Form = ({classes}) => {
+const Form = ({classes,handleClickClose}) => {
     const [newFind, setNewFind] = useState(''); 
     const [newExchange, setNewExchange] = useState(''); 
     const [newDesc, setDesc] = useState('')
@@ -89,12 +83,12 @@ const Form = ({classes}) => {
                 onChange={handleDesc}
             />
             <br /><br />
-            <Submit newFind={newFind} newDesc={newDesc} newExchange={newExchange} />
+            <Submit newFind={newFind} newDesc={newDesc} newExchange={newExchange} handleClickClose={handleClickClose}/>
         </div>
     )
 }
 
-const Submit = ({newFind, newDesc, newExchange}) => {
+const Submit = ({newFind, newDesc, newExchange, handleClickClose}) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -110,6 +104,7 @@ const Submit = ({newFind, newDesc, newExchange}) => {
         }
         await axios.post('http://localhost:3001/api/exchanges', newPost)
         setOpen(false); 
+        handleClickClose(); 
     }
 
     const handleClose = () => {

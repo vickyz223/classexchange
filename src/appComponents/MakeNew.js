@@ -3,9 +3,6 @@ import Popup from './Form'
 
 const MakeNew = ({classes}) => {
   const navigate = useNavigate();
-  const goToCreate = () => {
-    navigate('/newpost');
-  }
 
   return (
     <div>
