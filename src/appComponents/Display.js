@@ -3,7 +3,6 @@ const Display = ({exchanges, newFind, newExchange}) => {
     find = (find === null) ? '' : find.toUpperCase().trim(); 
     exchange = (exchange === null) ? '' : exchange.toUpperCase().trim(); 
     let hasExchange = current.exchanging.filter(curr => curr.includes(exchange));
-    console.log(exchange, hasExchange); 
     return hasExchange.length > 0 && current.finding.includes(find);  
   }
 

@@ -19,7 +19,6 @@ function App() {
     .then(bruh => setClasses(bruh)); 
   
   useEffect(() => {
-    console.log('effect')
     axios
       .get(url + '/api/exchanges')
       .then(response => setExchanges(response.data))
