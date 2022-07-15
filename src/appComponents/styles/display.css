@@ -3,13 +3,12 @@
 #display {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    /* height: 50vw;  */
+    flex-wrap: wrap;    
+    justify-content: space-between;
+    align-items: center;
+
     width: 80vw; 
     min-width: 20em; 
-
-    /* row-gap: 10%;
-    column-gap: 1em; */
 }
 
 .exchange {

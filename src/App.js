@@ -9,19 +9,21 @@ const url = 'http://localhost:3001'
 
 
 function App() {
-  const [classes, setClasses] = useState(''); 
+  const [classes, setClasses] = useState([]); 
   const [exchanges, setExchanges] = useState([])
 
+  useEffect( () => {
+    axios
+      .get(url + '/api/exchanges')
+      .then(response => setExchanges(response.data)); 
+  }, [])
+
+  useEffect(() => {
   axios
     .get(url + '/api/classes')
     .then(response => response.data)
     .then(classes => classes.map(curr => curr.name))
     .then(bruh => setClasses(bruh)); 
-  
-  useEffect(() => {
-    axios
-      .get(url + '/api/exchanges')
-      .then(response => setExchanges(response.data))
   }, [])
 
   const [newFind, setFind] = useState(''); 
@@ -29,7 +31,7 @@ function App() {
 
   return (
     <div id="all">
-      <h1>Class Exchange Finder</h1>
+      <h1>CLASS EXCHANGE FINDER</h1>
       <MakeNew classes={classes}/> <br/>
       <Search classes={classes} setFind={setFind} setExchange={setExchange}/>
       <Display exchanges={exchanges} newFind={newFind} newExchange={newExchange} />

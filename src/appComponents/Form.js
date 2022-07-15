@@ -3,6 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios'
 import React from 'react'
 import { useState } from 'react';
+import './styles/form.css'
 
 // mui imports 
 import Button from '@mui/material/Button';
@@ -25,15 +26,12 @@ const Popup = ({classes}) => {
   };
 
   return (
-    <div>
+    <div class="allF">
       <Button variant="outlined" 
               color="primary" onClick={handleClickOpen}>
         Make a new post!
       </Button>
       <Dialog open={open} onClose={handleClickClose}>
-        <DialogTitle>
-           New exchange request
-        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             <Form classes={classes} handleClickClose={handleClickClose}/>
@@ -59,7 +57,7 @@ const Form = ({classes,handleClickClose}) => {
     }
 
     return(
-        <div style={{width:"30vw"}}>
+        <div className='form'>
             <Autocomplete
                 disablePortal
                 id="combo-box-demo"
@@ -67,7 +65,6 @@ const Form = ({classes,handleClickClose}) => {
                 onChange={(event, value) => setNewFind(value)}
                 renderInput={(params) => <TextField {...params} label="Class you're looking for: " />}
             />
-            <br />
               <Autocomplete
                 multiple
                 id="tags-outlined"
@@ -79,9 +76,8 @@ const Form = ({classes,handleClickClose}) => {
                     variant="outlined"
                     label="Classes you're exchanging"
                   />
-                  )}
+                )}
               />
-            < br/>
             <TextField 
               id="standard-basic" 
               label="Other (10 swipes, $10, etc.)" 
@@ -89,19 +85,15 @@ const Form = ({classes,handleClickClose}) => {
               inputProps={{ maxLength: 15 }}
               onChange={handleMisc}
             />
-            <br />
-            <br />
             <TextField
                 id="outlined-textarea"
                 label="Additional Info"
-                placeholder="Placeholder"
                 rows={4}
                 multiline
                 value={newDesc}
                 inputProps={{ maxLength: 100 }}
                 onChange={handleDesc}
             />
-            <br /><br />
             <Submit newFind={newFind} newDesc={newDesc} newExchange={newExchange} handleClickClose={handleClickClose} misc={misc} open={open} setOpen={setOpen}/>
         </div>
     )
@@ -114,7 +106,7 @@ const Submit = ({newFind, newDesc, newExchange, handleClickClose, misc, open, se
     };
 
     const handleError = () => {
-      if (newFind === '') {
+      if (newFind === '' || newFind === null) {
         return <Alert severity="error">You must add a class you're looking for.</Alert>
       } else if (newExchange.length === 0 && misc === '') {
         return <Alert severity="error">You must add something you're exchanging.</Alert>
