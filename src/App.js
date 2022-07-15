@@ -3,7 +3,7 @@ import Search from './appComponents/Search'
 import Display from './appComponents/Display'
 import MakeNew from './appComponents/MakeNew'
 import axios from 'axios'
-//import { getSelectUtilityClasses } from '@mui/material'
+import './appComponents/styles/App.css'
 
 const url = 'http://localhost:3001'
 
@@ -28,7 +28,7 @@ function App() {
   const [newExchange, setExchange] = useState(''); 
 
   return (
-    <div>
+    <div id="all">
       <h1>Class Exchange Finder</h1>
       <MakeNew classes={classes}/> <br/>
       <Search classes={classes} setFind={setFind} setExchange={setExchange}/>
