@@ -1,0 +1,12 @@
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    width: 30vw; 
+    height: 60vh; 
+    min-width: 15em;
+
+    padding: 0.5em; 
+}

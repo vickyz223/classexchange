@@ -1,16 +1,12 @@
-#all {
-    
-}
+
 
 #display {
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: flex-start;
-    align-items: flex-start; 
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     /* height: 50vw;  */
     width: 80vw; 
-    minimum-width: 20em; 
+    min-width: 20em; 
 
     /* row-gap: 10%;
     column-gap: 1em; */
@@ -19,7 +15,7 @@
 .exchange {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     
     border-radius: 10px;
@@ -34,7 +30,7 @@
     padding: 0.5em;
     width: 18em; 
     height: fit-content; 
-
+    min-height: 7em; 
 }
 
 .for {
