@@ -21,7 +21,7 @@ const Exchange = ({exchange}) => {
   return (
     <div className='exchange'>
       <div>
-        <p><b className='bold'>{exchange.user}</b> is exchanging</p>
+        <p><b className='bold'>{exchange.user.username}</b> is exchanging</p>
           <div className='exchange-middle'>
             <h3 className='for bold'>{exchange.finding}</h3>
             <p className="for">   for   </p>

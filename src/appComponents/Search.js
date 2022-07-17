@@ -15,11 +15,7 @@ const Search = ({classes, setFind, setExchange}) => {
               backgroundColor: "white",
               'font-family': "'Lato', sans-serif",
           }}
-          InputProps={{
-            style: {
-                color: "red"
-            }
-        }}
+          
         />
         <br />
         <Autocomplete
