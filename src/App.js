@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Search from './appComponents/Search'
 import Display from './appComponents/Display'
 import MakeNew from './appComponents/MakeNew'
+import NavBar from './appComponents/NavBar'
 import axios from 'axios'
 import './appComponents/styles/App.css'
 
@@ -31,6 +32,8 @@ function App() {
 
   return (
     <div id="all">
+      <NavBar />
+      <br /> <br /> <br />
       <h1>CLASS EXCHANGE FINDER</h1>
       <MakeNew classes={classes}/> <br/>
       <Search classes={classes} setFind={setFind} setExchange={setExchange}/>
