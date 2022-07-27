@@ -1,6 +1,7 @@
 import * as React from 'react';
 import loginService from '../services/login'
-import Error from './Error'
+import { useDispatch } from 'react-redux';
+import { setNotice, clearNotice } from '../reducers/noticeReducer';
 
 // mui imports
 import Button from '@mui/material/Button';
@@ -13,6 +14,7 @@ const SignIn = ({setUser}) => {
     const [username, setUsername] = React.useState(''); 
     const [password, setPass] = React.useState('')
     const [error, setError] = React.useState(["", "success"])
+    const dispatch = useDispatch()
 
     const handleClickOpen = () => {
         setSOpen(true);
@@ -32,15 +34,18 @@ const SignIn = ({setUser}) => {
             window.localStorage.setItem(
                 'loggedUser', JSON.stringify(user)
             )
-            setError(["Successfully logged in!", "success"])
+            dispatch(setNotice(["Successfully logged in!", "success"]))
             setTimeout(() => {
                 setSOpen(false)
-                setError(["", "success"])
-            }, 700)
+                dispatch(clearNotice())
+            }, 5000)
             
         } catch (exception) {
-            setError(["Wrong username or password", "error"])
-            setTimeout(() => setError(["", "warning"]), 5000)
+            dispatch(setNotice(["Wrong username or password", "error"]));
+            setTimeout(() => {
+              setSOpen(false);
+              dispatch(clearNotice());
+            }, 5000);
         }
         
     }
@@ -49,7 +54,6 @@ const SignIn = ({setUser}) => {
         <div>
         <Button variant="outlined" onClick={handleClickOpen}>Login</Button>
         <Dialog open={sOpen} onClose={handleClose}>
-            <Error message={error[0]} type={error[1]} />
             <DialogContent>
                 <form>
                     <label for="username">Username:</label><br />

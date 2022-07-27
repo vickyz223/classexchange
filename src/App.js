@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from "react-redux";
 
 import Search from './appComponents/Search'
 import Display from './appComponents/Display'
@@ -17,7 +18,9 @@ function App() {
   const [classes, setClasses] = useState([]); 
   const [exchanges, setExchanges] = useState([])
   const [user, setUser] = useState(null)
-  const [error, setError] = useState(["", "warning"])
+  const error = useSelector(state => state.notice)
+  const appError = useSelector(state => state.appNotice)
+  console.log(error)
 
   useEffect( () => {
     axios
@@ -48,7 +51,7 @@ function App() {
   return (
     <div id="all">
       <Error message={error[0]} type={error[1]} />
-      <NavBar setUser={setUser} user={user} setError={setError} />
+      <NavBar setUser={setUser} user={user} />
       <br /> <br /> <br />
       <h1>CLASS EXCHANGE FINDER</h1>
       <MakeNew classes={classes} user={user} setUser={setUser} /> <br/>

@@ -1,15 +1,17 @@
 import './styles/navbar.css'
 import SignIn from './SignIn'
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { setNotice, clearNotice } from '../reducers/noticeReducer';
 
 const NavBar = ({setUser, user, setError}) => {
+    const dispatch = useDispatch()
     const logout = () => {
         window.localStorage.clear()
         setUser(null)
-        console.log("bruh")
-        setError(["Successfully logged out", "success"])
+        dispatch(setNotice(["Successfully logged out", "success"]))
         setTimeout(() => {
-            setError(["","success"])
+            dispatch(clearNotice())
         }, 5000)
     }
 

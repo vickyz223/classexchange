@@ -4,6 +4,8 @@ import axios from 'axios'
 import React from 'react'
 import { useState } from 'react';
 import loginService from '../services/login'
+import { useDispatch, useSelector } from "react-redux";
+import { setNotice, clearNotice } from '../reducers/noticeReducer'
 import './styles/form.css'
 
 // mui imports 
@@ -57,83 +59,83 @@ const Form = ({classes, handleClickClose, user}) => {
       setMisc(event.target.value)
     }
 
-    return(
-        <div className='form'>
-            <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={classes}
-                onChange={(event, value) => setNewFind(value)}
-                renderInput={(params) => <TextField {...params} label="Class you're looking for: " />}
-            />
-              <Autocomplete
-                multiple
-                id="tags-outlined"
-                options={classes}
-                onChange={(event, value) => {setNewExchange(value)}}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="outlined"
-                    label="Classes you're exchanging"
-                  />
-                )}
-              />
-            <TextField 
-              id="standard-basic" 
-              label="Other (10 swipes, $10, etc.)" 
-              variant="standard" 
-              inputProps={{ maxLength: 15 }}
-              onChange={handleMisc}
-            />
+    return (
+      <div className="form">
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={classes}
+          onChange={(event, value) => setNewFind(value)}
+          renderInput={(params) => (
+            <TextField {...params} label="Class you're looking for: " />
+          )}
+        />
+        <Autocomplete
+          multiple
+          id="tags-outlined"
+          options={classes}
+          onChange={(event, value) => {
+            setNewExchange(value);
+          }}
+          renderInput={(params) => (
             <TextField
-                id="outlined-textarea"
-                label="Additional Info"
-                rows={4}
-                multiline
-                value={newDesc}
-                inputProps={{ maxLength: 100 }}
-                onChange={handleDesc}
+              {...params}
+              variant="outlined"
+              label="Classes you're exchanging"
             />
-            <Submit newFind={newFind} newDesc={newDesc} newExchange={newExchange} handleClickClose={handleClickClose} misc={misc} open={open} setOpen={setOpen} user={user} />
-        </div>
-    )
+          )}
+        />
+        <TextField
+          id="standard-basic"
+          label="Other (10 swipes, $10, etc.)"
+          variant="standard"
+          inputProps={{ maxLength: 15 }}
+          onChange={handleMisc}
+        />
+        <TextField
+          id="outlined-textarea"
+          label="Additional Info"
+          rows={4}
+          multiline
+          value={newDesc}
+          inputProps={{ maxLength: 100 }}
+          onChange={handleDesc}
+        />
+        <Submit
+          newFind={newFind}
+          newDesc={newDesc}
+          newExchange={newExchange}
+          handleClickClose={handleClickClose}
+          misc={misc}
+          open={open}
+          setOpen={setOpen}
+          user={user}
+        />
+      </div>
+    );
 }
 
 const Submit = ({newFind, newDesc, newExchange, handleClickClose, misc, open, setOpen, user }) => {
-
+    const dispatch = useDispatch();
     const handleClickOpen = () => {
-      setOpen(true);
+      if (handleError() !== 1) {
+        handleSubmit()
+      }
     };
 
     const handleError = () => {
       if (newFind === '' || newFind === null) {
-        return <Alert severity="error">You must add a class you're looking for.</Alert>
+        dispatch(setNotice(["You must add a class you're looking for.", "error"]));
+        setTimeout(() => dispatch(clearNotice()), 5000);
+        return 1
       } else if (newExchange.length === 0 && misc === '') {
-        return <Alert severity="error">You must add something you're exchanging.</Alert>
+        dispatch(setNotice(["You must add a class you're exchanging.", "error"]));
+        setTimeout(() => dispatch(clearNotice()), 5000);
+        return 1
       } else if (newExchange.length > 4) {
-        return <Alert severity="error">The number of classes you're exchanging can't be more than four.</Alert>
-      } else {
-          return (
-            <div>
-
-                <DialogTitle id="alert-dialog-title">
-                  {"Submit exchange?"}
-                </DialogTitle>
-
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                Once you've submitted, you can edit your request in your profile.
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleSubmit}>Yes, I'm done</Button>
-                  <Button onClick={handleClose} autoFocus>
-                    No, go back to form
-                  </Button>
-                </DialogActions>
-            </div>
-          )
+        dispatch(setNotice(["The number of items you're exchanging can't be more than four.", "error"]));
+        setTimeout(() => dispatch(clearNotice()), 5000);
+        return 1
       }
     }
 
@@ -150,6 +152,10 @@ const Submit = ({newFind, newDesc, newExchange, handleClickClose, misc, open, se
           description: newDesc
       }
       loginService.create(newPost)
+
+      dispatch(setNotice(["Successfully posted", "success"]))
+      setTimeout(() => clearNotice(), 5000)
+
       setOpen(false); 
       handleClickClose(); 
     }
@@ -169,10 +175,6 @@ const Submit = ({newFind, newDesc, newExchange, handleClickClose, misc, open, se
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        
-        
-        {handleError()}
-        
       </Dialog>
     </div>
   );

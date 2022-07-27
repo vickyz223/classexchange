@@ -8,6 +8,11 @@
     font-family: 'Lato', sans-serif;
 }
 
+#error {
+    position: absolute;
+    z-index: 5000;
+}
+
 html {
     background-color: #E3F2FD
 }

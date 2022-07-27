@@ -9,7 +9,7 @@ const Search = ({classes, setFind, setExchange}) => {
           disablePortal
           id="combo-box-demo"
           options={classes}
-          onChange={(event, value) => setFind(value)}
+          onChange={(event, value) => setExchange(value)}
           renderInput={(params) => <TextField {...params} label="Looking for:" />}
           style={{
               backgroundColor: "white",
@@ -22,7 +22,7 @@ const Search = ({classes, setFind, setExchange}) => {
           disablePortal
           id="combo-box-demo"
           options={classes}
-          onChange={(event, value) => setExchange(value)}
+          onChange={(event, value) => setFind(value)}
           renderInput={(params) => <TextField {...params} label="Exchanging:"/>}
           style={{
               backgroundColor: "white"
