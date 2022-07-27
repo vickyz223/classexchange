@@ -3,6 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios'
 import React from 'react'
 import { useState } from 'react';
+import loginService from '../services/login'
 import './styles/form.css'
 
 // mui imports 
@@ -14,7 +15,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Alert from '@mui/material/Alert';
 
-const Popup = ({classes}) => {
+const Popup = ({classes, user}) => {
   const [open, setOpen] = React.useState(false);
   
   const handleClickOpen = () => {
@@ -34,7 +35,7 @@ const Popup = ({classes}) => {
       <Dialog open={open} onClose={handleClickClose}>
         <DialogContent>
           <DialogContentText>
-            <Form classes={classes} handleClickClose={handleClickClose}/>
+            <Form classes={classes} handleClickClose={handleClickClose} user={user} />
           </DialogContentText>
         </DialogContent>
       </Dialog>
@@ -42,7 +43,7 @@ const Popup = ({classes}) => {
   )
 }
 
-const Form = ({classes,handleClickClose}) => {
+const Form = ({classes, handleClickClose, user}) => {
     const [newFind, setNewFind] = useState(''); 
     const [newExchange, setNewExchange] = useState(''); 
     const [newDesc, setDesc] = useState('')
@@ -94,12 +95,12 @@ const Form = ({classes,handleClickClose}) => {
                 inputProps={{ maxLength: 100 }}
                 onChange={handleDesc}
             />
-            <Submit newFind={newFind} newDesc={newDesc} newExchange={newExchange} handleClickClose={handleClickClose} misc={misc} open={open} setOpen={setOpen}/>
+            <Submit newFind={newFind} newDesc={newDesc} newExchange={newExchange} handleClickClose={handleClickClose} misc={misc} open={open} setOpen={setOpen} user={user} />
         </div>
     )
 }
 
-const Submit = ({newFind, newDesc, newExchange, handleClickClose, misc, open, setOpen }) => {
+const Submit = ({newFind, newDesc, newExchange, handleClickClose, misc, open, setOpen, user }) => {
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -142,15 +143,15 @@ const Submit = ({newFind, newDesc, newExchange, handleClickClose, misc, open, se
       if (misc !== '') {
         ex.push(misc)
       }
-        const newPost = {
-            user: "placeholder",
-            finding: newFind, 
-            exchanging: newExchange, 
-            description: newDesc
-        }
-        await axios.post('http://localhost:3001/api/exchanges', newPost)
-        setOpen(false); 
-        handleClickClose(); 
+      const newPost = {
+          user: user,
+          finding: newFind, 
+          exchanging: newExchange, 
+          description: newDesc
+      }
+      loginService.create(newPost)
+      setOpen(false); 
+      handleClickClose(); 
     }
 
     const handleClose = () => {

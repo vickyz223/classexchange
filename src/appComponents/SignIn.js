@@ -1,5 +1,6 @@
 import * as React from 'react';
-import axios from 'axios'
+import loginService from '../services/login'
+import Error from './Error'
 
 // mui imports
 import Button from '@mui/material/Button';
@@ -11,6 +12,8 @@ const SignIn = ({setUser}) => {
     const [sOpen, setSOpen] = React.useState(false); 
     const [username, setUsername] = React.useState(''); 
     const [password, setPass] = React.useState('')
+    const [error, setError] = React.useState(["", "success"])
+
     const handleClickOpen = () => {
         setSOpen(true);
     };
@@ -19,31 +22,34 @@ const SignIn = ({setUser}) => {
         setSOpen(false);
     };
 
-    const login = async credentials => {
-        const response = await axios.post("http://localhost:3001/api/login", credentials)
-        console.log(response.data)
-        return response.data
-    }
-
     const handleSubmit = async () => {
         try {
-            const user = await login({username, password,})
-            console.log("user", user)
+            const user = await loginService.login({username, password,})
             setUser(user)
             setUsername('')
             setPass('')
+            loginService.setToken(user.token)
+            window.localStorage.setItem(
+                'loggedUser', JSON.stringify(user)
+            )
+            setError(["Successfully logged in!", "success"])
+            setTimeout(() => {
+                setSOpen(false)
+                setError(["", "success"])
+            }, 700)
+            
         } catch (exception) {
-            console.log(exception.message)
+            setError(["Wrong username or password", "error"])
+            setTimeout(() => setError(["", "warning"]), 5000)
         }
-        setSOpen(false)
+        
     }
 
     return (
         <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-            Open form dialog
-        </Button>
+        <Button variant="outlined" onClick={handleClickOpen}>Login</Button>
         <Dialog open={sOpen} onClose={handleClose}>
+            <Error message={error[0]} type={error[1]} />
             <DialogContent>
                 <form>
                     <label for="username">Username:</label><br />
