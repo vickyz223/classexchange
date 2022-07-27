@@ -10,12 +10,15 @@ import {
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import noticeReducer from './reducers/noticeReducer';
+import userReducer from './reducers/userReducer';
+
 import App from './App';
 
 const store = configureStore({
   reducer: {
     notice: noticeReducer,
-  },
+    user: userReducer
+  }, 
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

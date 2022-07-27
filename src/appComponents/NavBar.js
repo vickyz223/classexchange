@@ -1,31 +1,30 @@
 import './styles/navbar.css'
 import SignIn from './SignIn'
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setNotice, clearNotice } from '../reducers/noticeReducer';
+import { logout } from '../reducers/userReducer';
 
-const NavBar = ({setUser, user, setError}) => {
+const NavBar = () => {
     const dispatch = useDispatch()
-    const logout = () => {
-        window.localStorage.clear()
-        setUser(null)
-        dispatch(setNotice(["Successfully logged out", "success"]))
-        setTimeout(() => {
-            dispatch(clearNotice())
-        }, 5000)
+    const user = useSelector(state => state.user)
+    
+    const signout = () => {
+        console.log("bruh500")
+        dispatch(logout())
     }
 
-    if (user == null) {
+    if (user == null || user == "") {
         return (
             <div class="navbar">
-                <SignIn setUser={setUser} />
+                <SignIn />
                 <button>Sign Up</button>
             </div>
         )
     } else {
         return (
             <div class="navbar">
-                <button onClick={logout}>Logout</button>
+                <button onClick={signout}>Logout</button>
                 <button>My posts</button>
             </div>
         )

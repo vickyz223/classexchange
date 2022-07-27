@@ -1,7 +1,7 @@
 import * as React from 'react';
-import loginService from '../services/login'
 import { useDispatch } from 'react-redux';
 import { setNotice, clearNotice } from '../reducers/noticeReducer';
+import { login } from '../reducers/userReducer';
 
 // mui imports
 import Button from '@mui/material/Button';
@@ -9,11 +9,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
-const SignIn = ({setUser}) => {
+const SignIn = () => {
     const [sOpen, setSOpen] = React.useState(false); 
     const [username, setUsername] = React.useState(''); 
     const [password, setPass] = React.useState('')
-    const [error, setError] = React.useState(["", "success"])
     const dispatch = useDispatch()
 
     const handleClickOpen = () => {
@@ -24,30 +23,25 @@ const SignIn = ({setUser}) => {
         setSOpen(false);
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit =  () => {
         try {
-            const user = await loginService.login({username, password,})
-            setUser(user)
+            dispatch(login("user", "pass"));
             setUsername('')
             setPass('')
-            loginService.setToken(user.token)
-            window.localStorage.setItem(
-                'loggedUser', JSON.stringify(user)
-            )
-            dispatch(setNotice(["Successfully logged in!", "success"]))
-            setTimeout(() => {
-                setSOpen(false)
-                dispatch(clearNotice())
-            }, 5000)
-            
+            dispatch(login(username, password));
         } catch (exception) {
             dispatch(setNotice(["Wrong username or password", "error"]));
+            console.log(exception.message)
             setTimeout(() => {
-              setSOpen(false);
               dispatch(clearNotice());
             }, 5000);
+            return
         }
-        
+        dispatch(setNotice(["Successfully logged in!", "success"]));
+        setTimeout(() => {
+          setSOpen(false);
+          dispatch(clearNotice());
+        }, 5000); 
     }
 
     return (

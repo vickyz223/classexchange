@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from './reducers/userReducer';
 
 import Search from './appComponents/Search'
 import Display from './appComponents/Display'
@@ -15,12 +16,13 @@ const url = 'http://localhost:3001'
 
 
 function App() {
+  const dispatch = useDispatch();
+
   const [classes, setClasses] = useState([]); 
   const [exchanges, setExchanges] = useState([])
-  const [user, setUser] = useState(null)
   const error = useSelector(state => state.notice)
-  const appError = useSelector(state => state.appNotice)
-  console.log(error)
+
+  // dispatch(login("user", "pass"))
 
   useEffect( () => {
     axios
@@ -32,7 +34,7 @@ function App() {
     const loggedUserJSON = window.localStorage.getItem("loggedUser")
     if (loggedUserJSON) {
         const user = JSON.parse(loggedUserJSON)
-        setUser(user)
+        dispatch(setUser(user))
         loginService.setToken(user.token)
     }
   }, [])
@@ -51,10 +53,10 @@ function App() {
   return (
     <div id="all">
       <Error message={error[0]} type={error[1]} />
-      <NavBar setUser={setUser} user={user} />
+      <NavBar />
       <br /> <br /> <br />
       <h1>CLASS EXCHANGE FINDER</h1>
-      <MakeNew classes={classes} user={user} setUser={setUser} /> <br/>
+      <MakeNew classes={classes} /> <br/>
       <Search classes={classes} setFind={setFind} setExchange={setExchange}/>
       <Display exchanges={exchanges} newFind={newFind} newExchange={newExchange} />
     </div>
