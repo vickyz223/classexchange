@@ -1,170 +1,183 @@
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import axios from 'axios'
-import React from 'react'
-import { useState } from 'react';
-import loginService from '../services/login'
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import axios from "axios";
+import React from "react";
+import { useState } from "react";
+import loginService from "../services/login";
 import { useDispatch, useSelector } from "react-redux";
-import { setNotice, clearNotice } from '../reducers/noticeReducer'
-import './styles/form.css'
+import { setNotice, clearNotice } from "../reducers/noticeReducer";
+import "./styles/form.css";
 
-// mui imports 
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Alert from '@mui/material/Alert';
+// mui imports
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Alert from "@mui/material/Alert";
 
-const Popup = ({classes, user}) => {
+const Popup = ({ classes, user }) => {
   const [open, setOpen] = React.useState(false);
-  
+
   const handleClickOpen = () => {
     setOpen(true);
   };
-  
+
   const handleClickClose = () => {
     setOpen(false);
   };
 
   return (
     <div class="allF">
-      <Button variant="outlined" 
-              color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Make a new post!
       </Button>
       <Dialog open={open} onClose={handleClickClose}>
         <DialogContent>
           <DialogContentText>
-            <Form classes={classes} handleClickClose={handleClickClose} user={user} />
+            <Form classes={classes} handleClickClose={handleClickClose} />
           </DialogContentText>
         </DialogContent>
       </Dialog>
     </div>
-  )
-}
+  );
+};
 
-const Form = ({classes, handleClickClose, user}) => {
-    const [newFind, setNewFind] = useState(''); 
-    const [newExchange, setNewExchange] = useState(''); 
-    const [newDesc, setDesc] = useState('')
-    const [misc, setMisc] = useState('')
-    const [open, setOpen] = React.useState(false);
+const Form = ({ classes, handleClickClose, user }) => {
+  const [newFind, setNewFind] = useState("");
+  const [newExchange, setNewExchange] = useState("");
+  const [newDesc, setDesc] = useState("");
+  const [misc, setMisc] = useState("");
+  const [open, setOpen] = React.useState(false);
 
-    const handleDesc = (event) => {
-      setDesc(event.target.value)
+  const handleDesc = (event) => {
+    setDesc(event.target.value);
+  };
+  const handleMisc = (event) => {
+    setMisc(event.target.value);
+  };
+
+  return (
+    <div className="form">
+      <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={classes}
+        onChange={(event, value) => setNewFind(value)}
+        renderInput={(params) => (
+          <TextField {...params} label="Class you're looking for: " />
+        )}
+      />
+      <Autocomplete
+        multiple
+        id="tags-outlined"
+        options={classes}
+        onChange={(event, value) => {
+          setNewExchange(value);
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="outlined"
+            label="Classes you're exchanging"
+          />
+        )}
+      />
+      <TextField
+        id="standard-basic"
+        label="Other (10 swipes, $10, etc.)"
+        variant="standard"
+        inputProps={{ maxLength: 15 }}
+        onChange={handleMisc}
+      />
+      <TextField
+        id="outlined-textarea"
+        label="Additional Info"
+        rows={4}
+        multiline
+        value={newDesc}
+        inputProps={{ maxLength: 100 }}
+        onChange={handleDesc}
+      />
+      <Submit
+        newFind={newFind}
+        newDesc={newDesc}
+        newExchange={newExchange}
+        handleClickClose={handleClickClose}
+        misc={misc}
+        open={open}
+        setOpen={setOpen}
+      />
+    </div>
+  );
+};
+
+const Submit = ({
+  newFind,
+  newDesc,
+  newExchange,
+  handleClickClose,
+  misc,
+  open,
+  setOpen,
+  user,
+}) => {
+  const dispatch = useDispatch();
+  const handleClickOpen = () => {
+    if (handleError() !== 1) {
+      handleSubmit();
     }
-    const handleMisc = (event) => {
-      setMisc(event.target.value)
+  };
+
+  const handleError = () => {
+    if (newFind === "" || newFind === null) {
+      dispatch(
+        setNotice(["You must add a class you're looking for.", "error"])
+      );
+      setTimeout(() => dispatch(clearNotice()), 5000);
+      return 1;
+    } else if (newExchange.length === 0 && misc === "") {
+      dispatch(setNotice(["You must add a class you're exchanging.", "error"]));
+      setTimeout(() => dispatch(clearNotice()), 5000);
+      return 1;
+    } else if (newExchange.length > 4) {
+      dispatch(
+        setNotice([
+          "The number of items you're exchanging can't be more than four.",
+          "error",
+        ])
+      );
+      setTimeout(() => dispatch(clearNotice()), 5000);
+      return 1;
     }
+  };
 
-    return (
-      <div className="form">
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={classes}
-          onChange={(event, value) => setNewFind(value)}
-          renderInput={(params) => (
-            <TextField {...params} label="Class you're looking for: " />
-          )}
-        />
-        <Autocomplete
-          multiple
-          id="tags-outlined"
-          options={classes}
-          onChange={(event, value) => {
-            setNewExchange(value);
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="outlined"
-              label="Classes you're exchanging"
-            />
-          )}
-        />
-        <TextField
-          id="standard-basic"
-          label="Other (10 swipes, $10, etc.)"
-          variant="standard"
-          inputProps={{ maxLength: 15 }}
-          onChange={handleMisc}
-        />
-        <TextField
-          id="outlined-textarea"
-          label="Additional Info"
-          rows={4}
-          multiline
-          value={newDesc}
-          inputProps={{ maxLength: 100 }}
-          onChange={handleDesc}
-        />
-        <Submit
-          newFind={newFind}
-          newDesc={newDesc}
-          newExchange={newExchange}
-          handleClickClose={handleClickClose}
-          misc={misc}
-          open={open}
-          setOpen={setOpen}
-          user={user}
-        />
-      </div>
-    );
-}
-
-const Submit = ({newFind, newDesc, newExchange, handleClickClose, misc, open, setOpen, user }) => {
-    const dispatch = useDispatch();
-    const handleClickOpen = () => {
-      if (handleError() !== 1) {
-        handleSubmit()
-      }
+  const handleSubmit = async () => {
+    let ex = newExchange;
+    if (misc !== "") {
+      ex.push(misc);
+    }
+    const newPost = {
+      user: user,
+      finding: newFind,
+      exchanging: newExchange,
+      description: newDesc,
     };
+    loginService.create(newPost);
 
-    const handleError = () => {
-      if (newFind === '' || newFind === null) {
-        dispatch(setNotice(["You must add a class you're looking for.", "error"]));
-        setTimeout(() => dispatch(clearNotice()), 5000);
-        return 1
-      } else if (newExchange.length === 0 && misc === '') {
-        dispatch(setNotice(["You must add a class you're exchanging.", "error"]));
-        setTimeout(() => dispatch(clearNotice()), 5000);
-        return 1
-      } else if (newExchange.length > 4) {
-        dispatch(setNotice(["The number of items you're exchanging can't be more than four.", "error"]));
-        setTimeout(() => dispatch(clearNotice()), 5000);
-        return 1
-      }
-    }
+    dispatch(setNotice(["Successfully posted", "success"]));
+    setTimeout(() => clearNotice(), 5000);
 
-    const handleSubmit = async () => {
+    setOpen(false);
+    handleClickClose();
+  };
 
-      let ex = newExchange; 
-      if (misc !== '') {
-        ex.push(misc)
-      }
-      const newPost = {
-          user: user,
-          finding: newFind, 
-          exchanging: newExchange, 
-          description: newDesc
-      }
-      loginService.create(newPost)
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-      dispatch(setNotice(["Successfully posted", "success"]))
-      setTimeout(() => clearNotice(), 5000)
-
-      setOpen(false); 
-      handleClickClose(); 
-    }
-
-    const handleClose = () => {
-        setOpen(false); 
-    }
-
-    return (
+  return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
         Submit
@@ -174,10 +187,9 @@ const Submit = ({newFind, newDesc, newExchange, handleClickClose, misc, open, se
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-      >
-      </Dialog>
+      ></Dialog>
     </div>
   );
-}
+};
 
-export default Popup
+export default Popup;

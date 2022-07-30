@@ -13,6 +13,9 @@ import noticeReducer from './reducers/noticeReducer';
 import userReducer from './reducers/userReducer';
 
 import App from './App';
+import MyPosts from './appComponents/MyPosts';
+import SignUp from './appComponents/SignUp';
+import ExchangePage from './appComponents/ExchangePage';
 
 const store = configureStore({
   reducer: {
@@ -27,6 +30,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/posts" element={<MyPosts />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/posts/:postId" element={<ExchangePage />} />
       </Routes>
     </BrowserRouter>
   </Provider>

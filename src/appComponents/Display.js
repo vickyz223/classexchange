@@ -1,6 +1,9 @@
 import './styles/display.css'
+import { useNavigate } from 'react-router-dom';
 
 const Display = ({exchanges, newFind, newExchange}) => {
+  const navigate = useNavigate(); 
+  
   const contains = (current, find, exchange) => {
     find = (find === null) ? '' : find.toUpperCase().trim(); 
     exchange = (exchange === null) ? '' : exchange.toUpperCase().trim(); 
@@ -18,8 +21,9 @@ const Display = ({exchanges, newFind, newExchange}) => {
 }
 
 const Exchange = ({exchange}) => {
+  const navigate = useNavigate(); 
   return (
-    <div className='exchange'>
+    <div className='exchange' onClick={() => {navigate("/posts/" + exchange._id);}}>
       <div>
         <p><b className='bold'>{exchange.user.username}</b> is exchanging</p>
           <div className='exchange-middle'>

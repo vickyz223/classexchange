@@ -22,8 +22,6 @@ function App() {
   const [exchanges, setExchanges] = useState([])
   const error = useSelector(state => state.notice)
 
-  // dispatch(login("user", "pass"))
-
   useEffect( () => {
     axios
       .get(url + '/api/exchanges')

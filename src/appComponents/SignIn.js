@@ -31,7 +31,6 @@ const SignIn = () => {
             dispatch(login(username, password));
         } catch (exception) {
             dispatch(setNotice(["Wrong username or password", "error"]));
-            console.log(exception.message)
             setTimeout(() => {
               dispatch(clearNotice());
             }, 5000);

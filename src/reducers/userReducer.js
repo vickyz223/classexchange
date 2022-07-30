@@ -28,9 +28,7 @@ export const login = (username, password) => {
 
 export const logout = () => {
     return async dispatch => {
-        console.log("ok1")
         window.localStorage.clear();
-        console.log("ok2")
         dispatch(clearUser())
         dispatch(setNotice(["Successfully logged out", "success"]));
         setTimeout(() => {
