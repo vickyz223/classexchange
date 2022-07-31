@@ -1,0 +1,29 @@
+#myPostsAll {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, 15rem);
+    gap: 3rem; 
+    
+    max-width: 100%;
+    overflow-x: hidden;
+
+}
+
+.myPosts {
+    display: grid;
+    width: 80vw;
+    grid-template-columns: repeat(auto-fit, 30rem);
+}
+
+#exchangeHolder {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 30rem; 
+}
+
+.exchangebutton {
+    width: 8rem; 
+    height: 3rem; 
+}

@@ -44,7 +44,7 @@ const SignUp = () => {
         dispatch(
           setNotice([
             "Account successfully created! Welcome, " + reqBody.username + ".",
-            "success",
+            "success"
           ])
         );
         navigate("/")

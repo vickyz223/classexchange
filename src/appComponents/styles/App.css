@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
+:root {
+    --lightred: #EF233C;
+    --darkred: #EF233C; 
+    --white: #EDF2F4;
+    --darkgray: #EDF2F4; 
+    --lightgray: #8D99AE; 
+}
+
 #all {
     display: flex;
     flex-direction: column;
@@ -8,11 +16,28 @@
     font-family: 'Lato', sans-serif;
 }
 
+#search {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+
+    width: 100vw; 
+    padding-bottom: 1rem;
+
+    background-color: var(--lightred);
+    color: white; 
+}
+
 #error {
     position: absolute;
     z-index: 5000;
 }
 
 html {
-    background-color: #E3F2FD
+    background-color: var(--white)
+}
+
+.h1app {
+    font-size: 40px;
+    text-align: center;
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Route, Link, Routes, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import './styles/exchange.css'
 
 const ExchangePage = () => {
     const [post,setPost] = useState(null)
@@ -10,11 +11,10 @@ const ExchangePage = () => {
            .get("http://localhost:3001/api/exchanges/" + postId)
            .then((post) => setPost(post.data));
     }, []) 
-    console.log("post", post)
     
     if (post !== null) {
         return (
-          <div>
+          <div className="exchangeHolder">
             <h1>{post.user.username}</h1>
             <p>is looking for</p>
             <h2>{post.finding}</h2>

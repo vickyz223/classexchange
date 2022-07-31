@@ -4,9 +4,20 @@
     flex-direction: column;
     justify-content: space-around;
 
-    width: 30vw; 
-    height: 60vh; 
-    min-width: 15em;
+    height: clamp(100px, 15rem, 5000px);
+    width: clamp(280px, 30vw, 500px);
+    padding: 0.5rem; 
+}
 
-    padding: 0.5em; 
+.form > * {
+    padding: 0.5rem; 
+    width: 95%; 
+}
+
+.loginbutton {
+    border-radius: 20%/24px;
+    margin-top: 0.8rem !important; 
+    margin-left: auto;
+    margin-right: auto;
+    width: 6.5rem; 
 }

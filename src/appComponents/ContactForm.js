@@ -1,8 +1,71 @@
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import './styles/contactform.css'
 
-import { useDispatch } from "react-redux";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+
+import axios from 'axios'
+
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import loginService from "../services/login";
+import { setUser } from "../reducers/userReducer";
+
+import { useDispatch, useSelector } from "react-redux";
 import { setNotice, clearNotice } from "../reducers/noticeReducer";
+
+const ContactDialogue = ({ contacts, setContacts, setPostUser, postUser }) => {
+  const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = async () => {
+    if (user) {
+      const updated = {
+        contacts: contacts,
+      };
+      const newUser = axios
+        .put("http://localhost:3001/api/users/" + user.id, updated)
+        .then((user) => setPostUser(user.data));
+      dispatch(setUser(postUser));
+    }
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Edit Contact Info
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogContent>
+          <ContactForm contacts={contacts} setContacts={setContacts} />
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Submit
+          </Button>
+          <Button onClick={handleClose} autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+};
 
 const ContactForm = ({ contacts, setContacts }) => {
   const dispatch = useDispatch();
@@ -27,12 +90,13 @@ const ContactForm = ({ contacts, setContacts }) => {
   };
 
   return (
-    <div>
-      <p>Contact information</p>
-      <form onSubmit={addContact}>
+    <div id="contactForm">
+      <form id="form" onSubmit={addContact}>
+        <p>Contact information</p>
         <label for="contact-method">
           Method of Contact (email, instagram, discord, etc.):{" "}
         </label>
+        <br />
         <input type="text" name="contactMethod"></input>
         <br />
 
@@ -57,4 +121,4 @@ const ContactForm = ({ contacts, setContacts }) => {
   );
 };
 
-export default ContactForm 
+export default ContactDialogue 

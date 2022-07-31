@@ -52,11 +52,17 @@ function App() {
     <div id="all">
       <Error message={error[0]} type={error[1]} />
       <NavBar />
-      <br /> <br /> <br />
-      <h1>CLASS EXCHANGE FINDER</h1>
-      <MakeNew classes={classes} /> <br/>
-      <Search classes={classes} setFind={setFind} setExchange={setExchange}/>
-      <Display exchanges={exchanges} newFind={newFind} newExchange={newExchange} />
+      <div id="search">
+        <br /> <br /> <br />
+        <h1 className='h1app'>CLASS EXCHANGE FINDER</h1>
+        <MakeNew classes={classes} /> <br />
+        <Search classes={classes} setFind={setFind} setExchange={setExchange} />
+      </div>
+      <Display
+        exchanges={exchanges}
+        newFind={newFind}
+        newExchange={newExchange}
+      />
     </div>
   );
 }

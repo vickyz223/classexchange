@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 .all {
-    width: 30vw; 
+    width: clamp(18rem, 50vw, 30rem); 
     min-width: 18em; 
 }

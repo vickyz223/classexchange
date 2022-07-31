@@ -1,0 +1,9 @@
+#contactForm {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+#form > *{
+    margin: 5px; 
+}

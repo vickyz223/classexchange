@@ -1,21 +1,16 @@
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import loginService from "../services/login";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setNotice, clearNotice } from "../reducers/noticeReducer";
 import "./styles/form.css";
 
 // mui imports
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Alert from "@mui/material/Alert";
 
 const Popup = ({ classes, user }) => {
   const [open, setOpen] = React.useState(false);
@@ -30,9 +25,9 @@ const Popup = ({ classes, user }) => {
 
   return (
     <div class="allF">
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <button variant="outlined" color="primary" onClick={handleClickOpen}>
         Make a new post!
-      </Button>
+      </button>
       <Dialog open={open} onClose={handleClickClose}>
         <DialogContent>
           <DialogContentText>
@@ -91,6 +86,7 @@ const Form = ({ classes, handleClickClose, user }) => {
         inputProps={{ maxLength: 15 }}
         onChange={handleMisc}
       />
+      <br />
       <TextField
         id="outlined-textarea"
         label="Additional Info"
@@ -178,10 +174,10 @@ const Submit = ({
   };
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+    <div className="form">
+      <button className="loginbutton" onClick={handleClickOpen}>
         Submit
-      </Button>
+      </button>
       <Dialog
         open={open}
         onClose={handleClose}

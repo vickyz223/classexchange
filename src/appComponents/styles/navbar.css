@@ -2,11 +2,19 @@
 
 .navbar {
     overflow: hidden;
-    background-color: #333;
+    background-color: #2B2D42;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 500;
+}
+
+.scrolling {
+    background-color: #2B2D42 !important;
+}
+
+.top {
+    background-color: #EF233C !important;
 }
 
 .navbar button {
@@ -26,10 +34,10 @@
 /* Change background on mouse-over */
 .navbar button:hover {
     color: 1B3B93;
-    border-color: #E3F2FD; 
+    border-color: #EDF2F4; 
     border: solid; 
-    background-color: 1B3B93;
-    color: #E3F2FD;
+    background-color: #2B2D42;
+    color: #EDF2F4;
 }
 
 /* Main content */

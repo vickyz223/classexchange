@@ -23,7 +23,7 @@ const Display = ({exchanges, newFind, newExchange}) => {
 const Exchange = ({exchange}) => {
   const navigate = useNavigate(); 
   return (
-    <div className='exchange' onClick={() => {navigate("/posts/" + exchange._id);}}>
+    <div className='exchange grow' onClick={() => {navigate("/posts/" + exchange._id);}}>
       <div>
         <p><b className='bold'>{exchange.user.username}</b> is exchanging</p>
           <div className='exchange-middle'>
