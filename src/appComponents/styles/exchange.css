@@ -1,3 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+.allexchange {
+    position: absolute; 
+    height: 100vh; 
+    width: 100vw; 
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .exchangeHolder {
+    background: white; 
+    font-family: 'Lato', sans-serif; 
     
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+
+    margin: auto;
+    width: auto;
+    padding: 3rem;
+}
+
+.exchangeHolder > * {
+    margin: 1rem; 
+}
+
+#username {
+    text-transform: uppercase; 
+    color: black; 
+    font-size: 2rem;
+}
+
+#finding {
+    color: #D90429;
+    font-size: 1.5rem; 
+    margin: 0rem 0 5rem 0; 
+}
+
+.exchanging {
+    color: #D90429;
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
+}
+
+.exchanging > * {
+    margin: 0 !important; 
+    padding: 0.3rem;
+}
+
+.p {
+    font-size: 1.5rem;
+    word-spacing: 0.2rem; 
+    color: #63666A; 
+}
+
+.p2 {
+    font-size: 1.2rem;
+    word-spacing: 0.2rem;
+    color: #63666A; 
+}
+
+.gray {
+    color: #63666A; 
 }

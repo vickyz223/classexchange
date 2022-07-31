@@ -1,29 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+@media (min-width: 650px) {
+  #banner2 {
+    position:fixed;
+    padding:0;
+    margin:0 0 0 -15px;
+
+    top:0;
+    width: 20rem; 
+    height: 100%;
+    background:#2B2D42;
+
+    z-index: -15; 
+  }
+
+  #myPostsAll {
+    padding-top: 3rem; 
+  }
+}
+
+@media (max-width: 650px) {
+    #banner {
+    position:absolute;
+    padding:0;
+    margin:0 0 0 -15px;
+
+    top:0;
+    height: 18rem; 
+    width: 110%;
+    background:#2B2D42;
+
+    z-index: -15; 
+  }
+
+  #userinfo {
+    margin-top: 3rem !important; 
+    width: 100vw !important;
+    text-align: center;
+    margin-left: -2rem; 
+  }
+
+  .bannername {
+    font-size: 3rem;
+    padding: 0; 
+    margin: 1rem; 
+  }
+}
+
+#userinfo {
+    color: white;
+    margin: 0px 20px 20px 20px;
+    width: 250px; 
+}
+
+#contactinfo {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 #myPostsAll {
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, 15rem);
-    gap: 3rem; 
-    
-    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 20rem);
+
+    max-width: 100vw;
     overflow-x: hidden;
 
+    font-family: "Lato", sans-serif;
+    
 }
 
 .myPosts {
-    display: grid;
-    width: 80vw;
-    grid-template-columns: repeat(auto-fit, 30rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 30rem);
+
+  width: 80vw;
 }
 
 #exchangeHolder {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
 
-    width: 30rem; 
+  width: clamp(250px, 430px, 450px); 
+  max-width: 100vw;
 }
 
 .exchangebutton {
-    width: 8rem; 
-    height: 3rem; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 2rem;
+  margin-left: 16px;
+
+  background-color: white;
+  color: #d90429;
+  border-color: #d90429;
+}
+
+.exchangebutton:hover {
+  background-color: #d90429;
+  color: white;
+  border-color: #d90429;
 }

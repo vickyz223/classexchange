@@ -1,15 +1,16 @@
 
-.form {
+.form2 {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    margin-bottom: -1rem; 
 
-    height: clamp(100px, 15rem, 5000px);
+    height: clamp(100px, 27rem, 5000px);
     width: clamp(280px, 30vw, 500px);
     padding: 0.5rem; 
 }
 
-.form > * {
+.form2 > * {
     padding: 0.5rem; 
     width: 95%; 
 }

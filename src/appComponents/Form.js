@@ -54,7 +54,7 @@ const Form = ({ classes, handleClickClose, user }) => {
   };
 
   return (
-    <div className="form">
+    <div className="form2">
       <Autocomplete
         disablePortal
         id="combo-box-demo"
@@ -174,7 +174,7 @@ const Submit = ({
   };
 
   return (
-    <div className="form">
+    <div className="form2">
       <button className="loginbutton" onClick={handleClickOpen}>
         Submit
       </button>

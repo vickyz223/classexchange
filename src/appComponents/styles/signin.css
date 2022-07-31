@@ -8,7 +8,7 @@
     font-family: 'Lato', sans-serif;
     margin: auto; 
     height: clamp(230px, 25rem, 5000px); 
-    width: clamp(280px, 30vw, 500px)
+    width: clamp(280px, 25vw, 500px)    
 }
 
 .form > * {
@@ -31,7 +31,7 @@
     border: none;
     border-bottom: 2px solid #2B2D42;
     outline: none;
-    width: clamp(20vw, 60vw, 350px);  
+    width: 250px; 
 }
 
 .underline-animation {
@@ -40,7 +40,7 @@
     bottom: 0;
     left: -100%;
     position: absolute;
-    width: clamp(20vw, 50vw, 350px);
+    width: 250px;
     height: 2px;
     background-color: #EF233C;
 }
@@ -55,4 +55,5 @@
 
 #loginbutton {
     border-radius: 20%/24px;
+    width: 8rem; 
 }

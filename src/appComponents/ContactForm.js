@@ -42,10 +42,10 @@ const ContactDialogue = ({ contacts, setContacts, setPostUser, postUser }) => {
   };
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+    <div className="contactform">
+      <button className="round" variant="outlined" onClick={handleClickOpen}>
         Edit Contact Info
-      </Button>
+      </button>
       <Dialog
         open={open}
         onClose={handleClose}

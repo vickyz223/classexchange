@@ -34,6 +34,7 @@ const SignIn = () => {
             setUsername('')
             setPass('')
             dispatch(login(username, password));
+            navigate('/')
         } catch (exception) {
             dispatch(setNotice(["Wrong username or password", "error"]));
             setTimeout(() => {

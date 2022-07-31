@@ -1,0 +1,260 @@
+diff --git a/src/appComponents/diff.txt b/src/appComponents/diff.txt
+index 3eabee7..e69de29 100644
+--- a/src/appComponents/diff.txt
++++ b/src/appComponents/diff.txt
+@@ -1,255 +0,0 @@
+-diff --git a/src/appComponents/ExchangePage.js b/src/appComponents/ExchangePage.js
+-index a9ee539..1f5049c 100644
+---- a/src/appComponents/ExchangePage.js
+-+++ b/src/appComponents/ExchangePage.js
+-@@ -1,37 +1,70 @@
+- import { useEffect, useState } from "react";
+- import { useParams } from "react-router-dom";
+- import axios from "axios";
+--import './styles/exchange.css'
+-+import "./styles/exchange.css";
+- 
+- const ExchangePage = () => {
+--    const [post,setPost] = useState(null)
+--    const postId = useParams().postId;
+--    useEffect( () => {
+--         axios
+--           .get("http://localhost:3001/api/exchanges/" + postId)
+--           .then((post) => setPost(post.data));
+--    }, []) 
+--    
+--    if (post !== null) {
+--        return (
+--          <div className="exchangeHolder">
+--            <h1>{post.user.username}</h1>
+--            <p>is looking for</p>
+--            <h2>{post.finding}</h2>
+--            <p>in exchange for</p>
+--            {post.exchanging.map(exchange => <h2>{exchange}</h2>)}
+--            <p>{post.description}</p>
+--            <h3>You can contact them at</h3>
+--            {post.user.contacts.map(contact => <p>{contact}</p>)}
+--          </div>
+--        );
+-+  const [post, setPost] = useState(null);
+-+  const postId = useParams().postId;
+-+  useEffect(() => {
+-+    axios
+-+      .get("http://localhost:3001/api/exchanges/" + postId)
+-+      .then((post) => setPost(post.data));
+-+  }, []);
+-+
+-+  const postDetails = () => {
+-+    return (
+-+      <>
+-+        <h3>Additional post details: </h3>
+-+        <p>{post.description}</p>
+-+      </>
+-+    );
+-+  }
+-+
+-+  const contactDetails = () => {
+-+    if (post.user.contacts.length == 0) {
+-+      return (
+-+        <>
+-+          This user has no contact details. 
+-+        </>
+-+      )
+-     } else {
+--        return (
+--            <div>
+--                This post doesn't exist. 
+--            </div>
+--        )
+-+      return (
+-+        <>
+-+          <h3>You can contact them at</h3>
+-+          {post.user.contacts.map((contact) => (
+-+            <p>{contact}</p>
+-+          ))}
+-+        </>
+-+      );
+-     }
+-+  }
+-+
+-+  if (post !== null) {
+-+    console.log(post);
+-+    return (
+-+      <div className="allexchange">
+-+        <div className="exchangeHolder">
+-+          <p className="p">
+-+            <b id="username">{post.user.username}</b> is looking for
+-+          </p>
+-+          <h3>
+-+            <b id="finding">{post.finding}</b>
+-+          </h3>
+-+          <p className="p2">in exchange for</p>
+-+          <div className="exchanging">
+-+            {post.exchanging.map((exchange) => (
+-+              <h2>{exchange}</h2>
+-+            ))}
+-+          </div>
+-+          {post.description !== "" && postDetails()}
+-+          {contactDetails()}
+-+        </div>
+-+      </div>
+-+    );
+-+  } else {
+-+    return <div>This post doesn't exist.</div>;
+-+  }
+- };
+- 
+- export default ExchangePage;
+-diff --git a/src/appComponents/Form.js b/src/appComponents/Form.js
+-index 01f7ba2..0bb32cd 100644
+---- a/src/appComponents/Form.js
+-+++ b/src/appComponents/Form.js
+-@@ -54,7 +54,7 @@ const Form = ({ classes, handleClickClose, user }) => {
+-   };
+- 
+-   return (
+--    <div className="form">
+-+    <div className="form2">
+-       <Autocomplete
+-         disablePortal
+-         id="combo-box-demo"
+-@@ -174,7 +174,7 @@ const Submit = ({
+-   };
+- 
+-   return (
+--    <div className="form">
+-+    <div className="form2">
+-       <button className="loginbutton" onClick={handleClickOpen}>
+-         Submit
+-       </button>
+-diff --git a/src/appComponents/styles/exchange.css b/src/appComponents/styles/exchange.css
+-index d199363..d803c8e 100644
+---- a/src/appComponents/styles/exchange.css
+-+++ b/src/appComponents/styles/exchange.css
+-@@ -1,3 +1,62 @@
+-+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+-+
+-+.allexchange {
+-+    position: absolute; 
+-+    height: 100vh; 
+-+    width: 100vw; 
+-+
+-+    display: flex;
+-+    justify-content: center;
+-+    align-items: center;
+-+}
+-+
+- .exchangeHolder {
+-+    background: white; 
+-+    font-family: 'Lato', sans-serif; 
+-     
+--}
+-\ No newline at end of file
+-+    display: flex; 
+-+    flex-direction: column;
+-+
+-+    margin: auto;
+-+    width: auto;
+-+    padding: 3rem;
+-+}
+-+
+-+.exchangeHolder > * {
+-+    margin: 1rem; 
+-+}
+-+
+-+#username {
+-+    text-transform: uppercase; 
+-+    color: #D90429; 
+-+    font-size: 2rem;
+-+}
+-+
+-+#finding {
+-+    color: #EF233C; 
+-+    font-size: 1.5rem; 
+-+    margin: 1rem; 
+-+    padding: 1rem; 
+-+}
+-+
+-+.exchanging {
+-+    color: #D90429;
+-+    display: grid; 
+-+    grid-template-columns: 1fr 1fr;
+-+}
+-+
+-+.exchanging > * {
+-+    margin: 0 !important; 
+-+    padding: 0.3rem;
+-+}
+-+
+-+.p {
+-+    font-size: 1.5rem;
+-+    word-spacing: 0.2rem; 
+-+}
+-+
+-+.p2 {
+-+    font-size: 1.2rem;
+-+    word-spacing: 0.2rem;
+-+}
+-+
+-diff --git a/src/appComponents/styles/form.css b/src/appComponents/styles/form.css
+-index a354905..71e1314 100644
+---- a/src/appComponents/styles/form.css
+-+++ b/src/appComponents/styles/form.css
+-@@ -1,15 +1,16 @@
+- 
+--.form {
+-+.form2 {
+-     display: flex;
+-     flex-direction: column;
+-     justify-content: space-around;
+-+    margin-bottom: -1rem; 
+- 
+--    height: clamp(100px, 15rem, 5000px);
+-+    height: clamp(100px, 2rem, 5000px);
+-     width: clamp(280px, 30vw, 500px);
+-     padding: 0.5rem; 
+- }
+- 
+--.form > * {
+-+.form2 > * {
+-     padding: 0.5rem; 
+-     width: 95%; 
+- }
+-diff --git a/src/appComponents/styles/signin.css b/src/appComponents/styles/signin.css
+-index 214beda..84bfe8a 100644
+---- a/src/appComponents/styles/signin.css
+-+++ b/src/appComponents/styles/signin.css
+-@@ -8,7 +8,7 @@
+-     font-family: 'Lato', sans-serif;
+-     margin: auto; 
+-     height: clamp(230px, 25rem, 5000px); 
+--    width: clamp(280px, 30vw, 500px)
+-+    width: 400px; 
+- }
+- 
+- .form > * {
+-@@ -31,7 +31,7 @@
+-     border: none;
+-     border-bottom: 2px solid #2B2D42;
+-     outline: none;
+--    width: clamp(20vw, 60vw, 350px);  
+-+    width: 350px;  
+- }
+- 
+- .underline-animation {
+-@@ -40,7 +40,7 @@
+-     bottom: 0;
+-     left: -100%;
+-     position: absolute;
+--    width: clamp(20vw, 50vw, 350px);
+-+    width: 350px;
+-     height: 2px;
+-     background-color: #EF233C;
+- }
+-@@ -55,4 +55,5 @@
+- 
+- #loginbutton {
+-     border-radius: 20%/24px;
+-+    width: 8rem; 
+- }
+-\ No newline at end of file

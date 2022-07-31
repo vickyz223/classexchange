@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loginService from "../services/login";
@@ -9,6 +9,7 @@ import { setUser } from "../reducers/userReducer";
 import { setNotice, clearNotice } from "../reducers/noticeReducer";
 import ContactDialogue from "./ContactForm";
 import Error from "./Error";
+import NavBar from './NavBar'
 
 import "./styles/myposts.css";
 import * as React from "react";
@@ -46,9 +47,11 @@ const MyPosts = () => {
   return (
     <div id="myPostsAll">
       <Error />
-      <div>
-        <h1>{postUser !== null && postUser.username}</h1>
-        <div>
+      <NavBar />
+      <div id="banner2"></div>
+      <div id="userinfo">
+        <h1 className="bannername">{postUser !== null && postUser.username}</h1>
+        <div id="contactinfo">
           <h2>Contact Information</h2>
           {postUser !== null &&
             postUser.contacts.map((contact) => <p>{contact}</p>)}
@@ -61,7 +64,7 @@ const MyPosts = () => {
         </div>
       </div>
       <div>
-        <h2>Your posts</h2>
+        <h1>Your posts</h1>
         <div className="myPosts">
           {myPosts.map((post) => (
             <Exchange exchange={post} />
