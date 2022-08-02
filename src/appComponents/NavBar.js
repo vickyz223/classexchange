@@ -36,7 +36,7 @@ const NavBar = () => {
         dispatch(logout())
     }
 
-    if (user == null || user == "") {
+    if (user == null || user === "") {
         return (
           <div class={scrollState}>
             <img className="image" src={home} alt="home page button" onClick={() => navigate("/")} />

@@ -9,7 +9,7 @@ import { setUser } from "../reducers/userReducer";
 import { setNotice, clearNotice } from "../reducers/noticeReducer";
 import ContactDialogue from "./ContactForm";
 import Error from "./Error";
-import NavBar from './NavBar'
+import NavBar from "./NavBar";
 
 import "./styles/myposts.css";
 import * as React from "react";
@@ -45,30 +45,34 @@ const MyPosts = () => {
   }, []);
 
   return (
-    <div id="myPostsAll">
+    <div>
       <Error />
-      <NavBar />
-      <div id="banner2"></div>
-      <div id="userinfo">
-        <h1 className="bannername">{postUser !== null && postUser.username}</h1>
-        <div id="contactinfo">
-          <h2>Contact Information</h2>
-          {postUser !== null &&
-            postUser.contacts.map((contact) => <p>{contact}</p>)}
-          <ContactDialogue
-            contacts={contacts}
-            setContacts={setContacts}
-            setPostUser={setPostUser}
-            postUser={postUser}
-          />
+      <div id="myPostsAll">
+        <NavBar />
+        <div id="banner2"></div>
+        <div id="userinfo">
+          <h1 className="bannername">
+            {postUser !== null && postUser.username}
+          </h1>
+          <div id="contactinfo">
+            <h2>Contact Information</h2>
+            {postUser !== null &&
+              postUser.contacts.map((contact) => <p>{contact}</p>)}
+            <ContactDialogue
+              contacts={contacts}
+              setContacts={setContacts}
+              setPostUser={setPostUser}
+              postUser={postUser}
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <h1>Your posts</h1>
-        <div className="myPosts">
-          {myPosts.map((post) => (
-            <Exchange exchange={post} />
-          ))}
+        <div>
+          <h1>Your posts</h1>
+          <div className="myPosts">
+            {myPosts.map((post) => (
+              <Exchange exchange={post} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -97,7 +101,9 @@ const Exchange = ({ exchange }) => {
           <p className="small">{exchange.description}</p>
         </div>
       </div>
-      <button className="exchangebutton" onClick={handleDelete}>Delete</button>
+      <button className="exchangebutton" onClick={handleDelete}>
+        Delete
+      </button>
     </div>
   );
 };

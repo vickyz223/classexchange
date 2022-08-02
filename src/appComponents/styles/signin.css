@@ -6,9 +6,9 @@
     justify-content: start;
     align-items: center;
     font-family: 'Lato', sans-serif;
-    margin: auto; 
-    height: clamp(230px, 25rem, 5000px); 
-    width: clamp(280px, 25vw, 500px)    
+    margin: 1rem auto 1rem auto; 
+    height: clamp(230px, 25rem, 400px); 
+    width: clamp(280px, 25vw, 500px);    
 }
 
 .form > * {
@@ -17,7 +17,6 @@
 
 #banner {
     margin-bottom: 3rem;
-    margin-top: -0.1rem;
     padding-top: 1rem; 
 }
 

@@ -4,32 +4,53 @@ import "./styles/contactform.css";
 
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+import loginService from "../services/login"
 
 import axios from "axios";
 import { setUser } from "../reducers/userReducer";
 
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setNotice } from "../reducers/noticeReducer";
+import { clearNotice, setNotice } from "../reducers/noticeReducer";
 
 const ContactDialogue = ({ contacts, setContacts }) => {
   const [open, setOpen] = React.useState(false);
+  const [localUser, setLocalUser] = React.useState(
+    useSelector((state) => state.user)
+  );
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedUser");
+    if (loggedUserJSON) {
+      //get user
+      const user = JSON.parse(loggedUserJSON);
+      dispatch(setUser(user));
+      loginService.setToken(user.token);
+      setLocalUser(user);
+      setContacts(user.contacts);
+    }
+  }, [setLocalUser]);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  console.log("user", localUser)
+
   const handleClose = async () => {
-    if (user) {
+    if (localUser) {
       const updated = {
         contacts: contacts,
       };
-      const newUser = await axios
-        .put("http://localhost:3001/api/users/" + user.id, updated)
-        .then((user) => dispatch(setUser(user.data)));
+      await axios
+        .put("http://localhost:3001/api/users/" + localUser.id, updated)
+        .then((newuser) => {
+          dispatch(setUser(newuser.data));
+          setLocalUser(newuser.data); 
+          console.log("newuser",newuser.data)
+        });
     }
     setOpen(false);
   };
@@ -64,8 +85,9 @@ const ContactForm = ({ contacts, setContacts }) => {
     const contactMethod = event.target.contactMethod.value;
     const contactInfo = event.target.contactInfo.value;
 
-    if (contactMethod == "" || contactInfo == "") {
-      dispatch(setNotice("Both contact fields are required"));
+    if (contactMethod === "" || contactInfo === "") {
+      dispatch(setNotice(["Both contact fields are required", "error"]));
+      setTimeout(() => dispatch(clearNotice()), 5000);
       return;
     } else {
       let string = contactMethod + ": " + contactInfo;

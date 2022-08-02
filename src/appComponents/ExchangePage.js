@@ -18,30 +18,30 @@ const ExchangePage = () => {
     if (post.description !== "") {
       return (
         <>
-          <h3>Additional post details: </h3>
+          <h3 className="nomargin">Additional post details: </h3>
           <p className="gray">{post.description}</p>
         </>
       );
     } else {
       return (
         <>
-          <h3>This post has no description.</h3>
+          <h3 className="nomargin">This post has no description.</h3>
         </>
       );
     }
   }
 
   const contactDetails = () => {
-    if (post.user.contacts.length == 0) {
+    if (post.user.contacts.length === 0) {
       return (
         <>
-          <h3>This user has no contact details.</h3>
+          <h3 className="nomargin">This user has no contact details.</h3>
         </>
       );
     } else {
       return (
         <>
-          <h3>You can contact them at</h3>
+          <h3 className="nomargin">You can contact them at</h3>
           {post.user.contacts.map((contact) => (
             <p>{contact}</p>
           ))}

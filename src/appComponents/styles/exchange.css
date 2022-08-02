@@ -65,3 +65,7 @@
 .gray {
     color: #63666A; 
 }
+
+.nomargin {
+    margin-left: 0 !important; 
+}

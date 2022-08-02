@@ -2,8 +2,6 @@ import './styles/display.css'
 import { useNavigate } from 'react-router-dom';
 
 const Display = ({exchanges, newFind, newExchange}) => {
-  const navigate = useNavigate(); 
-  
   const contains = (current, find, exchange) => {
     find = (find === null) ? '' : find.toUpperCase().trim(); 
     exchange = (exchange === null) ? '' : exchange.toUpperCase().trim(); 
