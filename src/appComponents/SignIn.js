@@ -50,7 +50,7 @@ const SignIn = () => {
     }
 
     return (
-      <div>
+      <>
         <button onClick={handleClickOpen}>LOGIN</button>
         <Dialog open={sOpen} onClose={handleClose}>
           <DialogContent>
@@ -79,13 +79,15 @@ const SignIn = () => {
               <button onClick={handleSubmit} id="loginbutton">
                 LOGIN
               </button>
-              <br /> 
+              <br />
               <p>Don't have an account?</p>
-              <button id="loginbutton" onClick={() => navigate("/signup")}>SIGN UP</button>
+              <button id="loginbutton" onClick={() => navigate("/signup")}>
+                SIGN UP
+              </button>
             </form>
           </DialogContent>
         </Dialog>
-      </div>
+      </>
     );
 }
 

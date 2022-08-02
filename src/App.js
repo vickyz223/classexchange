@@ -11,6 +11,7 @@ import Error from './appComponents/Error'
 import loginService from './services/login'
 import axios from 'axios'
 import './appComponents/styles/App.css'
+import home from './appComponents/styles/home.svg'
 
 const url = 'http://localhost:3001'
 

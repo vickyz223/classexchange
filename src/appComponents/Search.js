@@ -6,6 +6,7 @@ const Search = ({classes, setFind, setExchange}) => {
   return (
     <div className="all">
       <Autocomplete
+        freeSolo 
         disablePortal
         id="combo-box-demo"
         className="Autocomplete"
@@ -21,6 +22,7 @@ const Search = ({classes, setFind, setExchange}) => {
       <br />
       <Autocomplete
         disablePortal
+        freeSolo
         id="combo-box-demo"
         options={classes}
         onChange={(event, value) => setFind(value)}

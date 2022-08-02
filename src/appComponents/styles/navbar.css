@@ -8,6 +8,9 @@
     left: 0px; 
     width: 100%;
     z-index: 500;
+
+    display: flex; 
+    justify-content: space-between;
 }
 
 .scrolling {
@@ -45,4 +48,8 @@
 .main {
     margin-top: 30px;
     /* Add a top margin to avoid content overlay */
+}
+
+.image {
+    margin-left: 0.5rem; 
 }

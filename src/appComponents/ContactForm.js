@@ -1,25 +1,19 @@
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import './styles/contactform.css'
+import "./styles/contactform.css";
 
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 
-import axios from 'axios'
-
-
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import loginService from "../services/login";
+import axios from "axios";
 import { setUser } from "../reducers/userReducer";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setNotice, clearNotice } from "../reducers/noticeReducer";
+import { setNotice } from "../reducers/noticeReducer";
 
-const ContactDialogue = ({ contacts, setContacts, setPostUser, postUser }) => {
+const ContactDialogue = ({ contacts, setContacts }) => {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -33,10 +27,9 @@ const ContactDialogue = ({ contacts, setContacts, setPostUser, postUser }) => {
       const updated = {
         contacts: contacts,
       };
-      const newUser = axios
+      const newUser = await axios
         .put("http://localhost:3001/api/users/" + user.id, updated)
-        .then((user) => setPostUser(user.data));
-      dispatch(setUser(postUser));
+        .then((user) => dispatch(setUser(user.data)));
     }
     setOpen(false);
   };
@@ -52,16 +45,13 @@ const ContactDialogue = ({ contacts, setContacts, setPostUser, postUser }) => {
         aria-labelledby="responsive-dialog-title"
       >
         <DialogContent>
-          <ContactForm contacts={contacts} setContacts={setContacts} />
+          <div id="dialogContact">
+            <ContactForm contacts={contacts} setContacts={setContacts} />
+            <button autoFocus onClick={handleClose}>
+              Submit
+            </button>
+          </div>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Submit
-          </Button>
-          <Button onClick={handleClose} autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
       </Dialog>
     </div>
   );
@@ -91,24 +81,33 @@ const ContactForm = ({ contacts, setContacts }) => {
 
   return (
     <div id="contactForm">
-      <form id="form" onSubmit={addContact}>
-        <p>Contact information</p>
-        <label for="contact-method">
-          Method of Contact (email, instagram, discord, etc.):{" "}
-        </label>
-        <br />
-        <input type="text" name="contactMethod"></input>
-        <br />
+      <form id="formc" onSubmit={addContact}>
+        <h1 className="h1">Contact information</h1>
+        <div id="contactformcontents">
+          <div className="input-name">
+            <label for="contact-method">
+              Method of Contact (Email, Instagram, etc.):{" "}
+            </label>
+            <br />
+            <input type="text" name="contactMethod"></input>
+            <span class="underline-animation"></span>
+          </div>
 
-        <label for="contact-info">Contact details (username/tag/etc.): </label>
-        <br />
-
-        <input type="text" name="contactInfo"></input>
-        <br />
-        <button type="submit">Add contact</button>
+          <div className="input-name">
+            <label for="contact-info">
+              Contact details (Username/Tag/etc.):{" "}
+            </label>
+            <br />
+            <input type="text" name="contactInfo"></input>
+            <span class="underline-animation"></span>
+          </div>
+          <button className="round" id="contactbutton" type="submit">
+            Add contact
+          </button>
+        </div>
       </form>
 
-      <Stack direction="row" spacing={1}>
+      <Stack direction="column" spacing={1}>
         {contacts.map((contact) => (
           <Chip
             key={contact}
@@ -121,4 +120,4 @@ const ContactForm = ({ contacts, setContacts }) => {
   );
 };
 
-export default ContactDialogue 
+export default ContactDialogue;

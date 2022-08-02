@@ -56,6 +56,7 @@ const Form = ({ classes, handleClickClose, user }) => {
   return (
     <div className="form2">
       <Autocomplete
+        freeSolo
         disablePortal
         id="combo-box-demo"
         options={classes}
@@ -65,6 +66,7 @@ const Form = ({ classes, handleClickClose, user }) => {
         )}
       />
       <Autocomplete
+        freeSolo
         multiple
         id="tags-outlined"
         options={classes}
