@@ -21,7 +21,7 @@ button {
 
 /* Change background on mouse-over */
 button:hover {
-    color: 1B3B93;
+    color: #2B2D42;
     border-color: #EDF2F4;
     border: solid;
     background-color: #2B2D42;

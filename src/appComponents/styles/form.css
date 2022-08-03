@@ -4,15 +4,22 @@
     flex-direction: column;
     justify-content: space-around;
     margin-bottom: -1rem; 
+    margin-left: -0.3rem; 
 
-    height: clamp(100px, 27rem, 5000px);
-    width: clamp(280px, 30vw, 500px);
+    height: clamp(100px, 29rem, 5000px);
+    width: clamp(250px, 30vw, 500px);
     padding: 0.5rem; 
 }
 
 .form2 > * {
     padding: 0.5rem; 
     width: 95%; 
+}
+
+#minitext {
+    padding-top: 0 !important; 
+    margin-top: 0 !important;
+    font-size: 14px;
 }
 
 .loginbutton {

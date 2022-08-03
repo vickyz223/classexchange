@@ -4,19 +4,17 @@ let token = null
 
 const login = async credentials => {
     // const response = await axios.post("http://localhost:3001/api/login", credentials)
-
     try {
-      console.log("here1");
       let res = await axios.post(
         "http://localhost:3001/api/login",
         credentials
       );
+      console.log("here1");
       return res.data;
     } catch (error) {
       console.log("here")
-      throw "Wrong username or password."
+      throw error 
     }
-    
 }
 
 const setToken = (newToken) => {

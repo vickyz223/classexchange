@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearNotice, setNotice } from "../reducers/noticeReducer";
 
-const ContactDialogue = ({ contacts, setContacts }) => {
+const ContactDialogue = ({ contacts, setContacts, type }) => {
   const [open, setOpen] = React.useState(false);
   const [localUser, setLocalUser] = React.useState(
     useSelector((state) => state.user)
@@ -22,6 +22,7 @@ const ContactDialogue = ({ contacts, setContacts }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("useEffect")
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
       //get user
@@ -40,6 +41,7 @@ const ContactDialogue = ({ contacts, setContacts }) => {
   console.log("user", localUser)
 
   const handleClose = async () => {
+    console.log("localUser", localUser)
     if (localUser) {
       const updated = {
         contacts: contacts,
@@ -50,9 +52,14 @@ const ContactDialogue = ({ contacts, setContacts }) => {
           dispatch(setUser(newuser.data));
           setLocalUser(newuser.data); 
           console.log("newuser",newuser.data)
+          window.localStorage.clear();
+          window.localStorage.setItem("loggedUser", JSON.stringify(newuser.data));
         });
     }
     setOpen(false);
+    if (type == "refresh") {
+      window.location.reload(false);
+    }
   };
 
   return (
@@ -67,7 +74,7 @@ const ContactDialogue = ({ contacts, setContacts }) => {
       >
         <DialogContent>
           <div id="dialogContact">
-            <ContactForm contacts={contacts} setContacts={setContacts} />
+            <ContactForm contacts={contacts} setContacts={setContacts} type="refresh" />
             <button autoFocus onClick={handleClose}>
               Submit
             </button>

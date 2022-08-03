@@ -34,6 +34,7 @@ const NavBar = () => {
 
     const signout = () => {
         dispatch(logout())
+        navigate("/")
     }
 
     if (user == null || user === "") {

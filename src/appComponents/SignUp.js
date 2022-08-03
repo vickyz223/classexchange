@@ -66,10 +66,10 @@ const SignUp = () => {
             <h2>
               Welcome to the <b class="bold">UCLA Class Exchange</b>.
             </h2>
-            <br/>
+            <br />
             <div className="input-name">
               <label for="username">Username:</label>
-              <br/>
+              <br />
               <input
                 type="text"
                 name="username"
@@ -80,7 +80,7 @@ const SignUp = () => {
             <br />
             <div className="input-name">
               <label for="password">Password:</label>
-              <br/>
+              <br />
               <input
                 type="text"
                 name="password"
@@ -93,11 +93,13 @@ const SignUp = () => {
             {contacts.map((contact) => (
               <p>{contact}</p>
             ))}
-            <ContactForm contacts={contacts} setContacts={setContacts} />
+            <ContactForm
+              contacts={contacts}
+              setContacts={setContacts}
+              type="norefresh"
+            />
           </div>
-          <button  onClick={handleSubmit}>
-            Sign up
-          </button>
+          <button onClick={handleSubmit}>Sign up</button>
           <br />
           <p>Already a user?</p>
           <SignIn />

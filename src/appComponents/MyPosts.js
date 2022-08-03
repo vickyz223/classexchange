@@ -42,7 +42,7 @@ const MyPosts = () => {
       );
       setTimeout(() => dispatch(clearNotice()), 5000);
     }
-  }, []);
+  }, [setContacts]);
 
   return (
     <div>
@@ -63,6 +63,7 @@ const MyPosts = () => {
               setContacts={setContacts}
               setPostUser={setPostUser}
               postUser={postUser}
+              type="refresh"
             />
           </div>
         </div>
@@ -82,6 +83,7 @@ const MyPosts = () => {
 const Exchange = ({ exchange }) => {
   const handleDelete = () => {
     loginService.remove(exchange._id);
+    window.location.reload(false);
   };
 
   return (

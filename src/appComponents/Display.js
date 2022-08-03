@@ -31,7 +31,7 @@ const Exchange = ({exchange}) => {
               {exchange.exchanging.map(exchange => <h4>{exchange}</h4>)}
             </div>
           </div>
-      <p className='small'>{exchange.description}</p>
+      <p className='small'>{exchange.description.slice(0,100)}</p>
       </div>
     </div>
   )

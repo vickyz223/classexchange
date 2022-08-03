@@ -20,24 +20,17 @@
 }
 
 @media (max-width: 650px) {
-    #banner {
-    position:absolute;
-    padding:0;
-    margin:0 0 0 -15px;
-
-    top:0;
-    height: 18rem; 
-    width: 110%;
-    background:#2B2D42;
-
-    z-index: -15; 
-  }
 
   #userinfo {
     margin-top: 3rem !important; 
     width: 100vw !important;
     text-align: center;
-    margin-left: -2rem; 
+    margin-left: 0 !important; 
+    background:#2B2D42;
+    border-spacing:0 0;
+
+    left: 0; 
+    right: 0; 
   }
 
   .bannername {

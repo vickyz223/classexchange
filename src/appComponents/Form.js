@@ -81,6 +81,7 @@ const Form = ({ classes, handleClickClose, user }) => {
           />
         )}
       />
+      <p id="minitext">Type and press 'Enter/Return' to add a class not on the list. </p>
       <TextField
         id="standard-basic"
         label="Other (10 swipes, $10, etc.)"
@@ -95,7 +96,6 @@ const Form = ({ classes, handleClickClose, user }) => {
         rows={4}
         multiline
         value={newDesc}
-        inputProps={{ maxLength: 100 }}
         onChange={handleDesc}
       />
       <Submit
@@ -168,6 +168,7 @@ const Submit = ({
     setTimeout(() => clearNotice(), 5000);
 
     setOpen(false);
+    window.location.reload(false);
     handleClickClose();
   };
 

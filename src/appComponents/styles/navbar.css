@@ -25,10 +25,10 @@
     float: right;
     display: block;
     background-color: #E3F2FD;
-    color: #1B3B93;
+    color: #2B2D42;
     text-align: center;
     padding: 0.5em 1.5em;
-    margin: 0.5em 0.7em ;
+    margin: 0.5em 0.3em ;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
     font-size: 1em;
@@ -37,7 +37,7 @@
 
 /* Change background on mouse-over */
 .navbar button:hover {
-    color: 1B3B93;
+    color: #2B2D42;
     border-color: #EDF2F4; 
     border: solid; 
     background-color: #2B2D42;

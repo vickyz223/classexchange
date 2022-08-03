@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useDispatch } from "react-redux";
 import { setNotice, clearNotice } from "../reducers/noticeReducer";
-import { login } from "../reducers/userReducer";
-
+import axios from "axios";
+import { login } from '../reducers/userReducer'
 // mui imports
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -15,6 +15,34 @@ const SignIn = () => {
   const [password, setPass] = React.useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const login2 = async (username, password) => {
+    console.log("credentials", username, password)
+    try {
+      let res = await axios.post(
+        "http://localhost:3001/api/login",
+        {
+          username: username, 
+          password: password
+        }
+      );
+      dispatch(login(username, password))
+      setUsername("");
+      setPass("");
+      navigate("/");
+      dispatch(setNotice(["Successfully logged in!", "success"]));
+      setTimeout(() => {
+        dispatch(clearNotice());
+      }, 5000);
+      setSOpen(false);
+      return res.data;
+    } catch (error) {
+      dispatch(setNotice(["Wrong username or password", "error"]));
+      setTimeout(() => {
+        dispatch(clearNotice());
+      }, 5000);
+    }
+  };
 
   const handleClickOpen = () => {
     setSOpen(true);
@@ -33,24 +61,12 @@ const SignIn = () => {
         setTimeout(() => {
           dispatch(clearNotice());
         }, 5000);
-        return; 
+        return;
       }
-      dispatch(login(username, password));
-      setUsername("");
-      setPass("");
-      navigate("/");
+      login2(username, password);
     } catch (exception) {
-      dispatch(setNotice(["Wrong username or password", "error"]));
-      setTimeout(() => {
-        dispatch(clearNotice());
-      }, 5000);
-      return;
+      console.log(exception);
     }
-    dispatch(setNotice(["Successfully logged in!", "success"]));
-    setTimeout(() => {
-      setSOpen(false);
-      dispatch(clearNotice());
-    }, 5000);
   };
 
   return (
@@ -74,7 +90,7 @@ const SignIn = () => {
             <div className="input-name">
               <label for="password">Password:</label> <br />
               <input
-                type="text"
+                type="password"
                 onChange={({ target }) => setPass(target.value)}
               />
               <span class="underline-animation"></span>
