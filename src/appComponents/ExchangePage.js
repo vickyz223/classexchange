@@ -10,7 +10,7 @@ const ExchangePage = () => {
   const postId = useParams().postId;
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/exchanges/" + postId)
+      .get("/api/exchanges/" + postId)
       .then((post) => setPost(post.data));
   }, []);
 

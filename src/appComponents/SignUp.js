@@ -38,7 +38,7 @@ const SignUp = () => {
       try {
         let res = await axios({
           method: "post",
-          url: "http://localhost:3001/api/users",
+          url: "/api/users/",
           data: reqBody,
         });
         let data = res.data;

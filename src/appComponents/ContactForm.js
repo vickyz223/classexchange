@@ -22,7 +22,6 @@ const ContactDialogue = ({ contacts, setContacts, type }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("useEffect")
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
     if (loggedUserJSON) {
       //get user
@@ -38,20 +37,16 @@ const ContactDialogue = ({ contacts, setContacts, type }) => {
     setOpen(true);
   };
 
-  console.log("user", localUser)
-
   const handleClose = async () => {
-    console.log("localUser", localUser)
     if (localUser) {
       const updated = {
         contacts: contacts,
       };
       await axios
-        .put("http://localhost:3001/api/users/" + localUser.id, updated)
+        .put("/api/users/" + localUser.id, updated)
         .then((newuser) => {
           dispatch(setUser(newuser.data));
           setLocalUser(newuser.data); 
-          console.log("newuser",newuser.data)
           window.localStorage.clear();
           window.localStorage.setItem("loggedUser", JSON.stringify(newuser.data));
         });

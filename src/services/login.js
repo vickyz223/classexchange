@@ -3,16 +3,13 @@ import axios from 'axios'
 let token = null
 
 const login = async credentials => {
-    // const response = await axios.post("http://localhost:3001/api/login", credentials)
     try {
       let res = await axios.post(
-        "http://localhost:3001/api/login",
+        "/api/login",
         credentials
       );
-      console.log("here1");
       return res.data;
     } catch (error) {
-      console.log("here")
       throw error 
     }
 }
@@ -26,7 +23,7 @@ const create = async newObject => {
     headers: { Authorization: token },
   }
 
-  const response = await axios.post('http://localhost:3001/api/exchanges', newObject, config)
+  const response = await axios.post('/api/exchanges', newObject, config)
   return response.data
 }
 
@@ -34,7 +31,7 @@ const remove = async id => {
   const config = {
     headers: { Authorization: token },
   }
-  const response = await axios.delete('http://localhost:3001/api/exchanges/' + id, config)
+  const response = await axios.delete('/api/exchanges/' + id, config)
   return response.data
 }
 

@@ -17,10 +17,9 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const login2 = async (username, password) => {
-    console.log("credentials", username, password)
     try {
       let res = await axios.post(
-        "http://localhost:3001/api/login",
+        "/api/login",
         {
           username: username, 
           password: password
@@ -54,7 +53,6 @@ const SignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("here");
     try {
       if (username === "" || password === "") {
         dispatch(setNotice(["Username and password can't be empty", "error"]));

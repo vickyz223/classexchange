@@ -11,9 +11,6 @@ import Error from './appComponents/Error'
 import loginService from './services/login'
 import axios from 'axios'
 import './appComponents/styles/App.css'
-import home from './appComponents/styles/home.svg'
-
-const url = 'http://localhost:3001'
 
 
 function App() {
@@ -25,7 +22,7 @@ function App() {
 
   useEffect( () => {
     axios
-      .get(url + '/api/exchanges')
+      .get('/api/exchanges')
       .then(response => setExchanges(response.data)); 
   }, [])
 
@@ -40,7 +37,7 @@ function App() {
 
   useEffect(() => {
   axios
-    .get(url + '/api/classes')
+    .get('/api/classes')
     .then(response => response.data)
     .then(classes => classes.map(curr => curr.name))
     .then(bruh => setClasses(bruh)); 

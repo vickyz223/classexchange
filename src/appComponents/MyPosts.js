@@ -33,7 +33,7 @@ const MyPosts = () => {
       setContacts(user.contacts);
       //get posts
       axios
-        .get("http://localhost:3001/api/users/" + user.id)
+        .get("/api/users/" + user.id)
         .then((response) => setPosts(response.data.exchanges));
     } else {
       navigate("/");
