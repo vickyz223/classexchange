@@ -53,7 +53,7 @@ const NavBar = () => {
             <img className="image" src={home} alt="home page button" onClick={() => navigate("/")}/>
             <div>
               <button onClick={signout}>LOGOUT</button>
-              <button onClick={() => navigate("/posts")}>MY POSTS</button>
+              <button onClick={() => navigate("/myposts")}>MY POSTS</button>
             </div>
           </div>
         );
